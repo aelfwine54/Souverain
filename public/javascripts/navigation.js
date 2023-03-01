@@ -1,16 +1,11 @@
-/**
- * Il se peut qu'on manque l'événement de window hashchange, alors on met aussi notre appel sur DOMContentLoaded
- */
-document.addEventListener('DOMContentLoaded', function(){
-    hashHandler();
-}, false);
+
 
 /**
  * Fonction qui va provoquer l'appel de la fonction racine du script propre à la page qui vient d'être chargée.
  */
 function chargerSousContenu(){
-    let nom = "charger" + location.hash.replace('#/', '');
-    console.log("Appel de la fonction: " + nom)
+    const nom = "charger" + location.hash.replace("#/", "");
+    console.log("Appel de la fonction: " + nom);
     window[nom]();
 }
 
@@ -21,7 +16,7 @@ function chargerSousContenu(){
  */
 function remplacerContenu(idElement, contenu){
     const sanitizer1 = new Sanitizer(); //retire les scripts qui risqueraient d'être injecté
-    let wrapper = document.getElementById(idElement);
+    const wrapper = document.getElementById(idElement);
     wrapper.setHTML(contenu, { sanitizer : sanitizer1 });
     chargerSousContenu();
 }
@@ -32,19 +27,19 @@ function remplacerContenu(idElement, contenu){
  */
 async function hashHandler() {
     //La page voulu apparaitra dans le hash (ce qui suit le # dans la barre d'adresse
-    let hash = location.hash;
-    console.log('Le hash est: ' + hash);
+    const hash = location.hash;
+    console.log("Le hash est: " + hash);
 
-    if (!hash.includes('/')){
-        console.log('Le hash est une ancre, ne rien faire');
-        return
+    if (!hash.includes("/")){
+        console.log("Le hash est une ancre, ne rien faire");
+        return;
     }
     //On crée le lien vers le contenu qu'on veut charger
-    let addr = '/html' + hash.replace('#', '');
+    const addr = "/html" + hash.replace("#", "");
     console.log("L'adresse du contenu est: " + addr);
     try{
         //On récupère la page sur le serveur
-        let reponse = await fetch(addr);
+        const reponse = await fetch(addr);
         //C'est asynchrone, alors on doit attendre que la page arrive. Puis on va la placer au coeur de l'affichage
         if(reponse.ok){
             const contenu = await reponse.text();
@@ -57,4 +52,11 @@ async function hashHandler() {
 }
 
 //La navigation se fait en utilisant les hash. Il faut donc surveiller l'événement qui dit que le hash a changé.
-window.addEventListener('hashchange', hashHandler, false);
+window.addEventListener("hashchange", hashHandler, false);
+
+/**
+ * Il se peut qu'on manque l'événement de window hashchange, alors on met aussi notre appel sur DOMContentLoaded
+ */
+document.addEventListener("DOMContentLoaded", function(){
+    void hashHandler();
+}, false);
