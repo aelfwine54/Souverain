@@ -1,0 +1,8 @@
+<h1 class="centrer">Liste des semenciers</h1>
+<section>
+<ul>
+    <% it.semenciers.forEach(function(s){ %>
+        <li><%= s.nom %></li>
+    <% }) %>
+</ul>
+</section>

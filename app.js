@@ -5,6 +5,7 @@ const path = require("path");
 const ValidationError = require("express-validation").ValidationError;
 const logger = require("morgan");
 const config = require("dotenv");
+const eta = require("eta");
 
 config.config();
 
@@ -14,6 +15,11 @@ const semenciersRouter = require("./routes/semenciers");
 
 const app = express();
 
+app.engine("eta", eta.renderFile);
+eta.configure({views: "./views", cache: true});
+app.set("views", "./views");
+app.set("view cache", true);
+app.set("view engine", "eta");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
