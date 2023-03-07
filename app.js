@@ -1,6 +1,8 @@
 const createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 const path = require("path");
 const ValidationError = require("express-validation").ValidationError;
 const logger = require("morgan");
@@ -10,8 +12,6 @@ const eta = require("eta");
 config.config();
 
 const htmlRouter = require("./routes/html");
-const usersRouter = require("./routes/users");
-const semenciersRouter = require("./routes/semenciers");
 
 const app = express();
 
@@ -26,18 +26,53 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Souverain API par Swagger",
+            version: "0.1.0",
+            description: "Vue Swagger de l'API de Souverain",
+            license: {
+                name: "MIT",
+                url: "https://spdx.org/licenses/MIT.html",
+            },
+            contact: {
+                name: "Frédéric Bergeron",
+                url: "https://fredericbergeron.net",
+                email: "info@email.com",
+            },
+        },
+        servers: [
+            {
+                url: "http://localhost:3000",
+            },],
+    },
+    apis: ["./routes/*.js"],
+};
+
+const specs = swaggerJsdoc(options);
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(specs, { explorer: true })
+);
+
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
+
 app.use("/html", htmlRouter);
-app.use("/users", usersRouter);
-app.use("/semenciers", semenciersRouter);
+app.use("/api/semenciers", require("./routes/semenciers"));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
 });
+
 
 app.use(function(err, req, res) {
     if (err instanceof ValidationError) {
@@ -63,5 +98,6 @@ app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render("error");
 });
+
 
 module.exports = app;
