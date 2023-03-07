@@ -2,7 +2,31 @@
 <section>
 <ul>
     <% it.semenciers.forEach(function(s){ %>
-        <li><%= s.nom %></li>
+        <li>
+            <article class="semencier">
+                <h1>
+                    <data value="<% s._id %>"><%= s.nom %></data>
+                </h1>
+                <div>
+                    Fondé en <%= s.fondation %>. <br />
+                    <a href="#/semences?semencierID=<%= s._id %>"><%= s.nombre_semences ? s.nombre_semences : 0 %> semences</a> disponibles.
+                    <address>
+                        Contact:<br />
+                        <% if (s.courriel) { %> Courriel: <a href="mailto:<%= s.courriel %>"><%= s.courriel %></a><br /><% } %>
+                        <% if (s.telephone) { %> Téléphone: <a href="tel:<%= s.telephone %>"><%= s.telephone %></a><br /><% } %>
+                        <% if (s.telecopieur) { %>Télécopieur: <a href="tel:<%= s.telecopieur %>"><%= s.telecopieur %></a><br /><% } %>
+                        <% if (s.site_web) { %>Site internet: <a href="<%= s.site_web %>"><%= s.site_web %></a><br /><% } %>
+                        <% if (s.adresse_postale) { %>
+                        Adresse postale : <%= s.adresse_postale.numero %>
+                            <%= s.adresse_postale.rue %>,
+                            <%= s.adresse_postale.ville %>,
+                            <%= s.adresse_postale.pays %>,
+                            <%= s.adresse_postale.code_postal %><br />
+                        <% } %>
+                    </address>
+                </div>
+            </article>
+        </li>
     <% }) %>
 </ul>
 </section>
