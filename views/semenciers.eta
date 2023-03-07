@@ -8,7 +8,7 @@
                     <data value="<% s._id %>"><%= s.nom %></data>
                 </h1>
                 <div>
-                    Fondé en <%= s.fondation %>. <br />
+                    <% if(s.fondation) { %> Fondé en <%= s.fondation %>. <br /><%  } %>
                     <a href="#/semences?semencierID=<%= s._id %>"><%= s.nombre_semences ? s.nombre_semences : 0 %> semences</a> disponibles.
                     <address>
                         Contact:<br />
