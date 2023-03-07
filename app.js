@@ -16,9 +16,9 @@ const semenciersRouter = require("./routes/semenciers");
 const app = express();
 
 app.engine("eta", eta.renderFile);
-eta.configure({views: "./views", cache: true});
+eta.configure({views: "./views", cache: false});
 app.set("views", "./views");
-app.set("view cache", true);
+app.set("view cache", false);
 app.set("view engine", "eta");
 
 app.use(bodyParser.urlencoded({ extended: false }));
