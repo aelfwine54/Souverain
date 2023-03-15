@@ -116,6 +116,7 @@ router.get("/", async function(req, res) {
 
 router.post("/", async function(req, res){
     const sem = new Semencier(req.body.nom, req.body.siteweb, req.body.adresse, req.body.fondation);
+    //TODO tenir compte des autres champs possibles
     const client = new MongoClient(process.env.MONGO_URI);
     const semenciersCol = client.db("souverain").collection("semenciers");
     await semenciersCol.insertOne(sem);

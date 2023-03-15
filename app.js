@@ -65,6 +65,7 @@ app.get("/", function(req, res) {
 
 app.use("/html", htmlRouter);
 app.use("/api/semenciers", require("./routes/semenciers"));
+app.use("/api/semences", require("./routes/semences"));
 
 
 
