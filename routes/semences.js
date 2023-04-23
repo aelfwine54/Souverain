@@ -126,20 +126,20 @@ const Semence = require("../data/Semence");
 /**
  * @swagger
  * tags:
- *   name: Semenciers
- *   description: L'API pour gérer les semenciers
- * /api/semenciers:
+ *   name: Semences
+ *   description: L'API pour gérer les semences
+ * /api/semences:
  *   get:
- *     summary : Récupérer la liste des semenciers
- *     tags: [Semenciers]
+ *     summary : Récupérer la liste des semences
+ *     tags: [Semences]
  *     responses:
  *       200:
- *         description: Une liste de semenciers.
+ *         description: Une liste de semences.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
- *               $ref: '#/components/schemas/Semencier'
+ *               $ref: '#/components/schemas/Semence'
  *       500:
  *         description: Some server error
  *
@@ -148,41 +148,41 @@ const Semence = require("../data/Semence");
 //TODO à rafiner plus tard pour gérer des params de recherches
 router.get("/", async function(req, res) {
     const client = new MongoClient(process.env.MONGO_URI);
-    const semenciersCol = client.db("souverain").collection("semenciers");
-    const cursor = semenciersCol.find({});
+    const semencesCol = client.db("souverain").collection("semences");
+    const cursor = semencesCol.find({});
     res.send( await cursor.toArray());
 });
 
 /**
  * @swagger
  * tags:
- *   name: Semenciers
- *   description: L'API pour gérer les semenciers
- * /api/semenciers:
+ *   name: Semences
+ *   description: L'API pour gérer les semences
+ * /api/semences:
  *   post:
- *     summary: Ajouter un nouveau semencier
- *     tags: [Semenciers]
+ *     summary: Ajouter une nouvelle semence
+ *     tags: [Semences]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Semencier'
+ *             $ref: '#/components/schemas/Semence'
  *     responses:
  *       200:
- *         description: Le semencier créé.
+ *         description: La semence créée.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Semencier'
+ *               $ref: '#/components/schemas/Semence'
  *       500:
  *         description: Some server error
  */
 
 router.post("/", async function(req, res){
-    const sem = new Semencier(req.body.nom, req.body.siteweb, req.body.adresse, req.body.fondation);
+    const sem = new Semence(req.body.nom_francais, req.body.nom_latin, req.body.nom_semencier);
     const client = new MongoClient(process.env.MONGO_URI);
-    const semenciersCol = client.db("souverain").collection("semenciers");
+    const semenciersCol = client.db("souverain").collection("semences");
     await semenciersCol.insertOne(sem);
     res.status(201);
     res.send(sem);
