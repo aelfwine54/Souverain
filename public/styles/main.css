@@ -140,3 +140,21 @@ nav{
 .centrer {
     text-align: center;
 }
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.flex .item {
+    margin: 0 25px 25px 0;
+    list-style: none;
+}
+
+.semencier{
+    background: rgba(10, 34, 56, 20%);
+    border: 2px solid rgb(20, 68, 112);
+    padding: 0 15px 15px 15px;
+    border-radius: 15px;
+}
