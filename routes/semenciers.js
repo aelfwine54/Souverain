@@ -3,6 +3,8 @@ const router = express.Router();
 const MongoClient = require("mongodb").MongoClient;
 const Semencier = require("../data/Semencier");
 
+const gSemenciers = require("../utils/gestionnaires").gSemenciers;
+
 /**
  * @swagger
  * components:
@@ -82,10 +84,11 @@ const Semencier = require("../data/Semencier");
 
 //TODO à rafiner plus tard pour gérer des params de recherches
 router.get("/", async function(req, res) {
-    const client = new MongoClient(process.env.MONGO_URI);
-    const semenciersCol = client.db("souverain").collection("semenciers");
-    const cursor = semenciersCol.find({});
-    res.send( await cursor.toArray());
+//    const client = new MongoClient(process.env.MONGO_URI);
+//    const semenciersCol = client.db("souverain").collection("semenciers");
+//    const cursor = semenciersCol.find({});
+
+    res.send( await gSemenciers.listerSemenciers(-1, true));
 });
 
 /**
