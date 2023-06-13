@@ -3,6 +3,8 @@ const router = express.Router();
 const MongoClient = require("mongodb").MongoClient;
 const Semence = require("../data/Semence");
 
+const gSemences = require("../utils/gestionnaires").gSemences;
+
 /**
  * @swagger
  * components:
@@ -150,10 +152,7 @@ const Semence = require("../data/Semence");
 
 //TODO à rafiner plus tard pour gérer des params de recherches
 router.get("/", async function(req, res) {
-    const client = new MongoClient(process.env.MONGO_URI);
-    const semencesCol = client.db("souverain").collection("semences");
-    const cursor = semencesCol.find({});
-    res.send( await cursor.toArray());
+    res.send( await gSemences.listerSemences(-1));
 });
 
 /**
@@ -178,6 +177,8 @@ router.get("/", async function(req, res) {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Semence'
+ *       400:
+ *         description: Une semence de de nom français existe déjà
  *       500:
  *         description: Some server error
  */
@@ -185,11 +186,15 @@ router.get("/", async function(req, res) {
 // TODO Donner un warning si le semenciers n'existe pas
 router.post("/", async function(req, res){
     const sem = new Semence(req.body.nom_francais, req.body.nom_anglais, req.body.nom_latin, req.body.nom_semencier, req.body.infos);
-    const client = new MongoClient(process.env.MONGO_URI);
-    const semenciersCol = client.db("souverain").collection("semences");
-    await semenciersCol.insertOne(sem);
-    res.status(201);
-    res.send(sem);
+    const reponse = await gSemences.ajouterSemence(sem);
+    if (reponse.nouveau){
+        res.status(201);
+        res.send(reponse.nouveau);
+    }
+    else{
+        res.status(reponse.code);
+        res.send(reponse.message);
+    }
 });
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const MongoClient = require("mongodb").MongoClient;
 const Semencier = require("../data/Semencier");
 
 const gSemenciers = require("../utils/gestionnaires").gSemenciers;
@@ -84,10 +83,6 @@ const gSemenciers = require("../utils/gestionnaires").gSemenciers;
 
 //TODO à rafiner plus tard pour gérer des params de recherches
 router.get("/", async function(req, res) {
-//    const client = new MongoClient(process.env.MONGO_URI);
-//    const semenciersCol = client.db("souverain").collection("semenciers");
-//    const cursor = semenciersCol.find({});
-
     res.send( await gSemenciers.listerSemenciers(-1, true));
 });
 
@@ -120,11 +115,16 @@ router.get("/", async function(req, res) {
 router.post("/", async function(req, res){
     const sem = new Semencier(req.body.nom, req.body.siteweb, req.body.adresse, req.body.fondation);
     //TODO tenir compte des autres champs possibles
-    const client = new MongoClient(process.env.MONGO_URI);
-    const semenciersCol = client.db("souverain").collection("semenciers");
-    await semenciersCol.insertOne(sem);
-    res.status(201);
-    res.send(sem);
+    const reponse = await gSemenciers.ajouterSemencier(sem);
+    if (reponse.nouveau){
+        res.status(201);
+        res.send(reponse.nouveau);
+    }
+    else{
+        res.status(reponse.code);
+        res.send(reponse.message);
+    }
+
 });
 
 module.exports = router;

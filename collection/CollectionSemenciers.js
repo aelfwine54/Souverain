@@ -15,6 +15,16 @@ class CollectionSemenciers{
             return await this.collection.find({}).toArray();
         }
     }
+
+    async ajouterSemencier(semencier){
+        await this.collection.insertOne(semencier);
+        return semencier;
+    }
+
+    async existe(nom){
+        const nb = await this.collection.countDocuments({nom : nom});
+        return nb > 0;
+    }
 }
 
 module.exports = CollectionSemenciers;
