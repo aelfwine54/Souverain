@@ -15,9 +15,11 @@
 
     <link rel="stylesheet" href="./styles/main.css">
     <script src="./javascripts/navigation.js"></script>
+    <script src="./javascripts/connexion.js"></script>
 
 </head>
 <body>
+<div id="overlay" class="cache"></div>
 <header id="navigation">
     <nav>
         <div id="menu-principal">
@@ -47,6 +49,26 @@
                         <a href="">À venir</a>
                         <a href="">À venir</a>
                     </div>
+                </div>
+                <!-- Menu de connexion -->
+                <div id="liens-connexion">
+                    <div class="float-right deroulant">
+                        <button id="btn-connexion" class="btn-deroulant" type="button">Connexion</button>
+                     </div>
+                     <div class="float-right deroulant">
+                        <button id="btn-inscription" class="btn-deroulant" type="button">Inscription</button>
+                    </div>
+                    <form id="form-connexion" class="cache">
+                        <div class="groupe-connexion">
+                            <label for="courriel">Courriel</label>
+                            <input type="email" id="courriel" name="courriel" required />
+                        </div>
+                        <div class="groupe-connexion">
+                            <label for="mdp">Mot de passe</label>
+                            <input type="password" id="mdp" name="mdp" required />
+                        </div>
+                        <button id="btn-submit-connexion" type="button">Se connecter</button>
+                    </form>
                 </div>
             </div>
         </div>

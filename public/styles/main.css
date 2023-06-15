@@ -158,3 +158,63 @@ nav{
     padding: 0 15px 15px 15px;
     border-radius: 15px;
 }
+
+#liens-connexion {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 5;
+}
+
+#liens-connexion button{
+    cursor: pointer;
+}
+
+#form-connexion {
+    position: fixed;
+    border: 2px solid var(--fond-menu-inverse);
+    background-color: var(--fond-menu);
+    color: var(--couleur-menu);
+    top: 50px;
+    right: 8px;
+    min-width: 300px;
+    padding: 10px;
+    z-index: 2;
+}
+#form-connexion .groupe-connexion {
+    padding-bottom: 10px;
+}
+
+#form-connexion .groupe-connexion label{
+    display: inline-block;
+    width: 30%;
+    margin-right: 5%;
+    text-align: right;
+}
+
+.cache {
+    display: none !important;
+}
+
+.right {
+    text-align: right;
+}
+
+.float-right {
+    float: right;
+}
+
+.choisi{
+    background: var(--fond-menu-choisi) !important;
+}
+
+#overlay{
+    position:fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 80%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition  : 1s ease-in-out;
+}
