@@ -19,7 +19,7 @@
                         <% if (s.adresse_postale && s.adresse_postale.numero) { %>
                         Adresse postale : <%= s.adresse_postale.numero %>
                             <%= s.adresse_postale.rue %>,
-                            <%= s.adresse_postale.ville %>,
+                            <%= s.adresse_postale.ville %>
                         <% } %>
                     </address>
                 </div>

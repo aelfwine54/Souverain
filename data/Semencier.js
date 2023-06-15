@@ -1,8 +1,7 @@
 class Semencier{
-    constructor(nom, site_web, adresse_postale, fondation) {
+    constructor(nom, contact, fondation) {
         this.nom = nom;
-        this.site_web = site_web;
-        this.adresse_postale = adresse_postale;
+        this.contact = contact;
         this.fondation = fondation;
     }
 }

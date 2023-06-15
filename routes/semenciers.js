@@ -12,6 +12,7 @@ const gSemenciers = require("../utils/gestionnaires").gSemenciers;
  *       type: object
  *       required:
  *         - nom
+ *         - contact
  *       properties:
  *         _id:
  *           type: string
@@ -22,41 +23,58 @@ const gSemenciers = require("../utils/gestionnaires").gSemenciers;
  *         fondation:
  *           type: int
  *           description: L'année de fondation de la compagnie
- *         site_web:
- *           type : string
- *           description : L'adresse du site web de la compagnie
- *         courriel:
- *           type : string
- *           format : email
- *           description : L'adresse courriel de la compagnie
- *         telephone:
- *           type : string
- *           description : Le numéro de téléphone de la compagnie
- *         telecopieur:
- *           type : string
- *           description : Le numéro de télécopieur de la compagnie
-*         nombre_semences:
+ *         contact:
+ *           type: object
+ *           description : Informations de contact du semencier
+ *           properties:
+ *             site_web:
+ *               type : string
+ *               description : L'adresse du site web de la compagnie
+ *             courriel:
+ *               type : string
+ *               format : email
+ *               description : L'adresse courriel de la compagnie
+ *             telephone:
+ *               type : string
+ *               description : Le numéro de téléphone de la compagnie
+ *             telecopieur:
+ *               type : string
+ *               description : Le numéro de télécopieur de la compagnie
+ *             adresse_postale:
+ *               type : object
+ *               properties:
+ *                 code_postal:
+ *                   type : string
+ *                 numero:
+ *                   type : string
+ *                 pays:
+ *                   type : string
+ *                 province:
+ *                   type : string
+ *                 rue:
+ *                   type : string
+ *                 ville:
+ *                   type : string
+ *         nombre_semences:
  *           type : integer
  *           description : Le nombre de types de semences offertes par la compagnie
- *         adresse_postale:
- *           type : object
- *           properties:
- *             code_postal:
- *               type : string
-*             numero:
- *               type : string
-*             pays:
- *               type : string
-*             province:
- *               type : string
-*             rue:
- *               type : string
-*             ville:
- *               type : string
+
  *       example:
- *         id: d5fE_asz
+ *         _id: d5fE_asz
  *         nom: McKenzie
  *         fondation: 1896
+ *         contact:
+ *           site_web : www.aaa.com
+ *           courriel : bbb@aaa.com
+ *           telephone : 888-444-5545
+ *           telecopieur : 889-444-5545
+ *           adresse_postale :
+ *             numero : 25
+ *             rue : rue Droite
+ *             ville : St-Poils
+ *             province : Québec
+ *             pays : Canada
+ *             code_postal : G1Q 3V3 
  */
 
 /**
@@ -113,7 +131,7 @@ router.get("/", async function(req, res) {
  */
 
 router.post("/", async function(req, res){
-    const sem = new Semencier(req.body.nom, req.body.siteweb, req.body.adresse, req.body.fondation);
+    const sem = new Semencier(req.body.nom, req.body.contact, req.body.fondation);
     //TODO tenir compte des autres champs possibles
     const reponse = await gSemenciers.ajouterSemencier(sem);
     if (reponse.nouveau){
