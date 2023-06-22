@@ -14,10 +14,10 @@
     <title>Souverain</title>
 
     <link rel="stylesheet" href="./styles/main.css">
+    <script src="./javascripts/utils.js"></script>
     <script src="./javascripts/navigation.js"></script>
-    <script src="./javascripts/connexion.js"></script>
-
 </head>
+
 <body>
 <div id="overlay" class="cache"></div>
 <header id="navigation">
@@ -50,7 +50,7 @@
                         <a href="">À venir</a>
                     </div>
                 </div>
-                <!-- Menu de connexion -->
+                <!-- Menu de connexion et inscription -->
                 <div id="liens-connexion">
                     <div class="float-right deroulant">
                         <button id="btn-connexion" class="btn-deroulant" type="button">Connexion</button>
@@ -60,14 +60,40 @@
                     </div>
                     <form id="form-connexion" class="cache">
                         <div class="groupe-connexion">
-                            <label for="courriel">Courriel</label>
-                            <input type="email" id="courriel" name="courriel" required />
+                            <label for="courriel-connexion">Courriel</label>
+                            <input type="email" id="courriel-connexion" name="courriel" required />
                         </div>
                         <div class="groupe-connexion">
-                            <label for="mdp">Mot de passe</label>
-                            <input type="password" id="mdp" name="mdp" required />
+                            <label for="mdp-connexion">Phrase de passe</label>
+                            <input type="password" id="mdp-connexion" name="mdp" required />
                         </div>
                         <button id="btn-submit-connexion" type="button">Se connecter</button>
+                    </form>
+                    <form id="form-inscription" class="cache">
+                        <h1>Inscription</h1>
+                        <div class="groupe-inscription">
+                            <label for="nom-inscription">Nom</label>
+                            <input type="text" id="nom-inscription" name="nom" required />
+                        </div>
+                        <div class="groupe-inscription">
+                            <label for="courriel-inscription">Courriel</label>
+                            <input type="email" id="courriel-inscription" name="courriel" required />
+                        </div>
+                        <div class="groupe-inscription">
+                            <label for="pdp-inscription">Phrase de passe</label>
+                            <input type="password" id="pdp-inscription" name="pdp" required />
+                        </div>
+                        <div class="groupe-inscription">
+                            <label for="pdp-inscription-confirmation">Phrase de passe (confirmation)</label>
+                            <input type="password" id="pdp-inscription-confirmation" name="pdp-confirmation" required />
+                        </div>
+                        <ul id="consentement-inscription">
+                            <li>Souverain ne partage aucune information avec aucun partenaire. </li>
+                            <li>L'information collectée par souverain est privée à votre compte seulement.</li>
+                            <li>Si vous souhaitez que vos informations soient utilisées par Souverain et ses partenaires, vous devez vous rendre dans la section
+                            &laquo;&nbsp;Consentement&nbsp;&raquo; du profil afin de donner votre consentement explicite et limité.</li>
+                        </ul>
+                        <button id="btn-submit-inscription" type="button">S'inscrire</button>
                     </form>
                 </div>
             </div>

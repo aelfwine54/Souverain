@@ -177,19 +177,42 @@ nav{
     color: var(--couleur-menu);
     top: 50px;
     right: 8px;
-    min-width: 300px;
+    min-width: 340px;
     padding: 10px;
     z-index: 2;
 }
-#form-connexion .groupe-connexion {
+
+#form-inscription {
+    position: fixed;
+    border: 2px solid var(--fond-menu-inverse);
+    background-color: var(--fond-menu);
+    color: var(--couleur-menu);
+    top: 20%;
+    right: 50%;
+    margin-right: -250px;
+    width: 500px;
+    padding: 10px;
+    z-index: 2;
+}
+
+#form-connexion .groupe-connexion, #form-inscription .groupe-inscription {
     padding-bottom: 10px;
 }
 
-#form-connexion .groupe-connexion label{
+#form-connexion .groupe-connexion label, #form-inscription .groupe-inscription label{
     display: inline-block;
     width: 30%;
     margin-right: 5%;
     text-align: right;
+}
+
+#form-connexion .groupe-connexion input, #form-inscription .groupe-inscription input{
+    min-width: 200px;
+}
+
+#consentement-inscription{
+    text-align: justify;
+    padding-left: 20px;
 }
 
 .cache {
