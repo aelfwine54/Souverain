@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const fs = require("fs-extra");
 const Semence = require("../data/Semence");
 
 const gSemences = require("../utils/gestionnaires").gSemences;
@@ -204,16 +205,19 @@ router.get("/", async function(req, res) {
 // TODO Donner un warning si le semenciers n'existe pas
 router.post("/", async function(req, res){
     if(!req.body.infos) req.body.infos = {};
+    if(!req.body.nom_semencier) req.body.nom_semencier = "inconnu";
 
     const image = req.files.filename;
     if (image){
-        console.log(image);
-        if (!image.mimetype.includes("image")) return res.sendStatus(400);
-        await image.mv(__dirname +"/../public/images/plantes/" + image.name);
-        console.log(__dirname +"/../public/images/plantes/" + image.name);
+        if (!image.mimetype.includes("image")) return res.sendStatus(400); //Valider que c'est bien une image
 
-        req.body.infos.image = "/images/plantes/" + image.name;
+        await fs.ensureDir(__dirname + "/../public/images/plantes/" + req.body.nom_semencier); //Valider que le dossier de destination existe
+        const nom_image = req.body.nom_semencier + "/" + req.body.nom_francais + "." + image.name.split(".").pop();
+        await image.mv(__dirname + "/../public/images/plantes/" + nom_image);
+
+        req.body.infos.image = "/images/plantes/" + nom_image;
     }
+
     const sem = new Semence(req.body.nom_francais, req.body.nom_anglais, req.body.nom_latin, req.body.nom_semencier, req.body.infos);
     const reponse = await gSemences.ajouterSemence(sem);
     if (reponse.nouveau){
