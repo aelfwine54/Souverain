@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const path = require("path");
@@ -23,6 +24,15 @@ app.set("view engine", "eta");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(fileUpload({
+    limits: {
+        fileSize: 10000000, // Around 10MB
+    },
+    abortOnLimit: true,
+    safeFileNames: true,
+    preserveExtension : 4,
+
+}));
 app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 

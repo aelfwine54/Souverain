@@ -8,7 +8,7 @@
                     <data value="<% s._id %>"><%= s.nom_francais %> <em>(<%= s.nom_latin %>)</em></data>
                 </h1>
                 <div>
-                <% if (s.image) { %> <img src="<%= s.image %>" alt="Image de <%= s.nom_francais %>" /> <% } %>
+                <% if (s.infos.image) { %> <img src="<%= s.infos.image %>" alt="Image de <%= s.nom_francais %>" /> <% } %>
                 </div>
             </article>
         </li>

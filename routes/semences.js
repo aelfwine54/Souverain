@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const MongoClient = require("mongodb").MongoClient;
 const Semence = require("../data/Semence");
 
 const gSemences = require("../utils/gestionnaires").gSemences;
@@ -32,6 +31,9 @@ const gSemences = require("../utils/gestionnaires").gSemences;
  *         infos:
  *           type: object
  *           properties:
+ *             image:
+ *               type : string
+ *               description: Lien relatif vers l'image de la semence
  *             variete:
  *               type: string
  *               description: La varitété de la semence
@@ -167,9 +169,25 @@ router.get("/", async function(req, res) {
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Semence'
+ *             type: object
+ *             properties:
+ *               filename:
+ *                 type: string
+ *                 format : binary
+ *               nom_francais:
+ *                 type: string
+ *                 description: Le nom en francais de la semence
+ *               nom_anglais:
+ *                 type: string
+ *                 description: Le nom en anglais de la semence
+ *               nom_latin:
+ *                 type: string
+ *                 description: Le nom en latin de la semence
+ *               nom_semencier:
+ *                 type: string
+ *                 description: Le nom du semencier ("clé étrangère")
  *     responses:
  *       201:
  *         description: La semence créée.
@@ -185,6 +203,17 @@ router.get("/", async function(req, res) {
 
 // TODO Donner un warning si le semenciers n'existe pas
 router.post("/", async function(req, res){
+    if(!req.body.infos) req.body.infos = {};
+
+    const image = req.files.filename;
+    if (image){
+        console.log(image);
+        if (!image.mimetype.includes("image")) return res.sendStatus(400);
+        await image.mv(__dirname +"/../public/images/plantes/" + image.name);
+        console.log(__dirname +"/../public/images/plantes/" + image.name);
+
+        req.body.infos.image = "/images/plantes/" + image.name;
+    }
     const sem = new Semence(req.body.nom_francais, req.body.nom_anglais, req.body.nom_latin, req.body.nom_semencier, req.body.infos);
     const reponse = await gSemences.ajouterSemence(sem);
     if (reponse.nouveau){
