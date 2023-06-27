@@ -1,0 +1,17 @@
+<h1 class="centrer">Liste des plantes des affiliés</h1>
+<section>
+<ul class="flex">
+    <% it.plantes.forEach(function(s){ %>
+        <li class="item">
+            <article class="semence">
+                <h1>
+                    <data value="<% s._id %>"><%= s.nom_francais %> <em>(<%= s.nom_latin %>)</em></data>
+                </h1>
+                <div>
+                <% if (s.image) { %> <img src="<%= s.image %>" alt="Image de <%= s.nom_francais %>" /> <% } %>
+                </div>
+            </article>
+        </li>
+    <% }) %>
+</ul>
+</section>

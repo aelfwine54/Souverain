@@ -6,6 +6,10 @@
     --fond-menu-choisi: #123456;
 }
 
+body{
+    margin: 0;
+}
+
 footer{
     border: 2px solid black;
     text-align: center;
@@ -131,38 +135,10 @@ nav{
     background-color: var(--fond-menu-choisi);
 }
 
-
-#corps-principal{
-    margin-bottom: 25px;
-}
-
-
-.centrer {
-    text-align: center;
-}
-
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.flex .item {
-    margin: 0 25px 25px 0;
-    list-style: none;
-}
-
-.semencier{
-    background: rgba(10, 34, 56, 20%);
-    border: 2px solid rgb(20, 68, 112);
-    padding: 0 15px 15px 15px;
-    border-radius: 15px;
-}
-
 #liens-connexion {
     position: fixed;
     right: 10px;
-    top: 10px;
+    top: 4px;
     z-index: 5;
 }
 
@@ -189,7 +165,7 @@ nav{
     color: var(--couleur-menu);
     top: 20%;
     right: 50%;
-    margin-right: -250px;
+    margin-right: -262px;
     width: 500px;
     padding: 10px;
     z-index: 2;
@@ -213,6 +189,36 @@ nav{
 #consentement-inscription{
     text-align: justify;
     padding-left: 20px;
+}
+
+#corps-principal{
+    margin-bottom: 25px;
+}
+
+.centrer {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.flex .item {
+    margin: 0 25px 25px 0;
+    list-style: none;
+}
+
+.semencier, .semence{
+    background: rgba(10, 34, 56, 20%);
+    border: 2px solid rgb(20, 68, 112);
+    padding: 0 15px 15px 15px;
+    border-radius: 15px;
+}
+
+.semence img {
+    width: 100px;
 }
 
 .cache {

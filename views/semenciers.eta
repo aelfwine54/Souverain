@@ -1,4 +1,4 @@
-<h1 class="centrer">Liste des semenciers</h1>
+<h1 class="centrer">Liste des semenciers affiliés</h1>
 <section>
 <ul class="flex">
     <% it.semenciers.forEach(function(s){ %>
